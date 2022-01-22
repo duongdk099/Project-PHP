@@ -2,6 +2,11 @@
 require_once 'vendor/autoload.php';
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use wish\view\ParticipantView as ViewPage;
+include_once 'src/control/ControlImage.php';
+include_once 'src/control/ControlListe.php';
+use ControlImage as cI;
+use ControlListe as cL;
 
 // Container nécessaire
 $c=new \Slim\Container([ 'settings'=>['displayErrorDetails' => true]]);
@@ -9,32 +14,82 @@ $app = new \Slim\App($c);
 
 \wish\bd\Eloquent::start(__DIR__ . '/src/conf/conf.ini');
 
+
+if (isset($_GET['changeSource'])) {
+    # code...
+    echo "Hello ". $_GET['New_Source']. '   ID : '.$_GET['ID'];
+}
+
 $app->get('[/]', function(Request $rq, Response $rs, array $args) {
 
-    $rs->getBody()->write("<h1>Page Accueil application wishlist</h1>");
+    $rs->getBody()->write("<h1>Page Accueil application wishlist</h1>
+    \n
+    <a href='ImagePage'>Clicked To Page Image</a>
+    <br>
+    <a href='uploadItem'>Clicked To Item Page</a>
+    <br>
+    <a href='ListePage'>Clicked To Liste Page</a>
+    ");
+
     return $rs;
 }) ;
 
-$app->get('/items/{id}', function(Request $rq, Response $rs, array $args): Response {
-    $c = new \wish\control\ParticipantController($this);
-    return $c->displayItem($rq,$rs,$args);
-
-})->setName('item');
-
-$app->get('/lists[/]', function(Request $rq, Response $rs, array $args) {
-
-    $rs->getBody()->write("affichage de la liste les listes");
+$app->get('/ListePage', function(Request $rq, Response $rs, array $args): Response {
+    $rs->getBody()->write(ViewPage::createListePage()); 
+    cL::showListe();
     return $rs;
-}) ;
+})->setName('ListePage');
 
-$app->get('/lists/{id}/items', function(Request $rq, Response $rs, array $args) {
+// $app->get('/uploadItem', function(Request $rq, Response $rs, array $args): Response {
+//     $rs->getBody()->write
+//     (
+//     '<div id="NewHome">
+//     <form action="" method="GET">
+//         <textarea name="IDToDo" cols="20" rows="1" placeholder="ID : "></textarea>
+//         <br>
+//         <input type="submit" name="show_ID" value="Show Item">
+//     </form>
+//     </div>'
+//     );
+//     CIt::showItem();
+//     return $rs;
+// })->setName('uploadItem');
 
-    $rs->getBody()->write("affichage des items de la liste {$args['id']}");
+$app->get('/ImagePage', function(Request $rq, Response $rs, array $args): Response {
+    $rs->getBody()->write(ViewPage::createViewImage()); 
+    cI::showImage();
     return $rs;
-}) ;
+})->setName('ImagePage');
+
+// $app->get('/items/{id}', function(Request $rq, Response $rs, array $args): Response {
+//     $c = new \wish\control\ParticipantController($this);
+//     return $c->displayItem($rq,$rs,$args);
+
+// })->setName('item');
+
+// $app->get('/lists[/]', function(Request $rq, Response $rs, array $args) {
+
+//     $rs->getBody()->write("affichage de la liste les listes");
+//     return $rs;
+// }) ;
+
+// $app->get('/lists/{id}/items', function(Request $rq, Response $rs, array $args) {
+
+//     $rs->getBody()->write("affichage des items de la liste {$args['id']}");
+//     return $rs;
+// }) ;
+
+// $app->get('/changeAdresse',function(Request $rq, Response $rs, array $args) {
+
+//     $rs->getBody()->write("affichage des items de la liste ". $_GET['ID']." Et avec src : ".$_GET['New_Source']);
+//     return $rs;
+// }) ;
+
 
 $app->run();
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,8 +98,10 @@ $app->run();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
 </head>
 <body>
 
 </body>
 </html>
+

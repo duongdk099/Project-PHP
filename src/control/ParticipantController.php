@@ -23,17 +23,36 @@ class ParticipantController {
         $this->c = $c;
     }
 
+    // public function displayItem(Request $rq, Response $rs, array $args):Response {
+
+    //     try {
+    //         $item = Item::query()->where('id', '=', $args['id'])
+    //             ->firstOrFail();
+    //         $htmlvars = [
+    //             'basepath'=> $rq->getUri()->getBasePath()
+    //         ];
+
+    //         $v = new ParticipantView([$item]);
+    //         $rs->getBody()->write( $v->render( $htmlvars ) );
+    //         return $rs;
+
+    //     } catch (ModelNotFoundException $e) {
+
+    //         $rs->getBody()->write("item {$item->id} non trouvé");
+    //         return $rs;
+
+    //     }
+
+    // }
     public function displayItem(Request $rq, Response $rs, array $args):Response {
 
         try {
             $item = Item::query()->where('id', '=', $args['id'])
                 ->firstOrFail();
-            $htmlvars = [
-                'basepath'=> $rq->getUri()->getBasePath()
-            ];
+            
 
             $v = new ParticipantView([$item]);
-            $rs->getBody()->write( $v->render( $htmlvars ) );
+            $rs->getBody()->write( $v->ItemHTML($item)  );
             return $rs;
 
         } catch (ModelNotFoundException $e) {

@@ -31,7 +31,6 @@
         <button type="submit">Delete Account</button>
     </div>
 </form>
-<img src="src\img\animateur.jpg">
 </html>
 <?php
 require_once 'vendor/autoload.php';
