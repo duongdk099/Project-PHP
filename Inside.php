@@ -3,11 +3,10 @@ require_once 'vendor/autoload.php';
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use wish\view\ParticipantView as ViewPage;
-include_once 'src/control/ControlImage.php';
 include_once 'src/control/ControlListe.php';
-use ControlImage as cI;
+include_once 'src/control/ControlCreateListe.php';
 use ControlListe as cL;
-
+use ControlCreateListe as ccL;
 // Container nécessaire
 $c=new \Slim\Container([ 'settings'=>['displayErrorDetails' => true]]);
 $app = new \Slim\App($c);
@@ -24,11 +23,9 @@ $app->get('[/]', function(Request $rq, Response $rs, array $args) {
 
     $rs->getBody()->write("<h1>Page Accueil application wishlist</h1>
     \n
-    <a href='ImagePage'>Clicked To Page Image</a>
-    <br>
-    <a href='uploadItem'>Clicked To Item Page</a>
-    <br>
     <a href='ListePage'>Clicked To Liste Page</a>
+    <br>
+    <a href='Create_Liste'>Clicked To Create Liste</a>
     ");
 
     return $rs;
@@ -39,6 +36,12 @@ $app->get('/ListePage', function(Request $rq, Response $rs, array $args): Respon
     cL::showListe();
     return $rs;
 })->setName('ListePage');
+
+$app->get('/Create_Liste', function(Request $rq, Response $rs, array $args): Response {
+    $rs->getBody()->write(ViewPage::createListe()); 
+    ccL::check();
+    return $rs;
+})->setName('Create_Liste');
 
 // $app->get('/uploadItem', function(Request $rq, Response $rs, array $args): Response {
 //     $rs->getBody()->write
@@ -55,11 +58,7 @@ $app->get('/ListePage', function(Request $rq, Response $rs, array $args): Respon
 //     return $rs;
 // })->setName('uploadItem');
 
-$app->get('/ImagePage', function(Request $rq, Response $rs, array $args): Response {
-    $rs->getBody()->write(ViewPage::createViewImage()); 
-    cI::showImage();
-    return $rs;
-})->setName('ImagePage');
+
 
 // $app->get('/items/{id}', function(Request $rq, Response $rs, array $args): Response {
 //     $c = new \wish\control\ParticipantController($this);

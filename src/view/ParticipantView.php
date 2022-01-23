@@ -80,11 +80,25 @@ END;
         return 
         '<div id="NewHome">
             <form action="" method="GET">
-                <textarea name="Num_Liste" cols="20" rows="1" placeholder="Num de Liste : "></textarea>
+                <textarea name="Token" cols="20" rows="1" placeholder="Token : "></textarea>
                 <br>
-                <input type="submit" name="showListeByNum" value="Show Liste">
-                <br>
-                <input type="submit" name="showListeAll" value="Show All">
+                <input type="submit" name="showListeByToken" value="Show Liste">
+
+            </form>
+        </div>';
+    }
+
+    public static function createListe(){
+        return 
+        '<div id="NewHome">
+            <form action="" method="GET">
+            <textarea name="titre" cols="20" rows="1" placeholder="titre : "></textarea>
+            <br>
+            <textarea name="description" cols="20" rows="1" placeholder="description : "></textarea>
+            <br>
+            <textarea name="expiration" cols="20" rows="1" placeholder="expiration : "></textarea>
+            <br>
+            <input type="submit" name="Create" value="Create Liste">
             </form>
         </div>';
     }
