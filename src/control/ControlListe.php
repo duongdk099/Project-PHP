@@ -11,7 +11,13 @@ class ControlListe
         if (isset($_GET['showListeByNum'])) {
             # code...
             $id = $_GET['Num_Liste'];
-            self::show($id);
+            if (is_numeric($id) == 1) {
+                # code...
+                self::show($id);
+            }
+            else{
+                echo "It must be a number";
+            }
         }
         if (isset($_GET['showListeAll'])) {
             # code...
@@ -45,6 +51,7 @@ echo "<p>Titre : " . $row["titre"] . "</p>";
 echo "<p>Description : " . $row["description"] . "</p>";
 echo "<p>Date Expiration : " . $row["expiration"] . "</p>";
 echo "<p>Token : " . $row["token"] . "</p>";
+ControlItem::showByListeID($row["user_id"]);
         }
                 
     }
@@ -56,7 +63,7 @@ echo "<p>Token : " . $row["token"] . "</p>";
         $st->execute();
         foreach ($st->fetchAll(PDO::FETCH_NUM) as $row){
                 echo "<p name='numero'> ID : " . $row[0] . "</p>";
-                echo "<p> User_ID : " . $row[1] . "</p>";
+                echo "<p>User_ID : " . $row[1] . "</p>";
                 echo "<p>Titre : " . $row[2] . "</p>";
                 echo "<p>Description : " . $row[3] . "</p>";
                 echo "<p>Date Expiration : " . $row[4] . "</p>";

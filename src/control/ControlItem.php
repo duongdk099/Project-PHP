@@ -11,7 +11,14 @@ class ControlItem
         if (isset($_GET['show_ID'])) {
             # code...
             $id = $_GET['IDToDo'];
-            self::show($id);
+            if (is_numeric($id) == 1) {
+                # code...
+                self::show($id);
+            }
+            else{
+                echo "It must be a number";
+            }
+            
         }
     }
 
@@ -39,7 +46,7 @@ class ControlItem
 
     public static function showByListeID($liste_id){
         $db = ConnectionFactory::callAuto();
-        $query = "SELECT * from item where liste_id = ".$liste_id;
+        $query = "SELECT * from item, reservation_item where liste_id = ".$liste_id ." AND  id= reservation_item.id_item;";
         $st = $db->prepare($query);
         $st->execute();
         foreach ($st->fetchAll(PDO::FETCH_NUM) as $row){
@@ -62,6 +69,24 @@ class ControlItem
         </div>';
             echo "<p>Text : " . $row[3] . "</p>";
             echo "<p>Tarif : " . $row[6] . "</p>";
+            if ($row[8] == null) {
+                # code...
+                echo '<br>
+                <div id="content">
+                <form method="GET" enctype="multipart/form-data">
+                    <div>
+                        <textarea name="src" cols="6" rows="1" placeholder="Your ID"></textarea>
+                        <br>
+                        <textarea name="src" cols="20" rows="2" placeholder="Your Message"></textarea>
+                        <br>
+                        <input type="submit" name="update" value="Update Img">
+                        <br>
+                </form>
+            </div>';
+            }
+            else{
+                echo "<p>Already had someone</p>";
+            }
     } 
     }
 }
