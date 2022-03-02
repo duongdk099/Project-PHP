@@ -1,6 +1,6 @@
 # myWishList
 
-Projet PHP Bully-Cimbaluria Kévin (TheRealEureka) / Francois Aurélien (AurelienFrancoisUL) / Pierron Maxence (Azfouille) / Steiner Noé (Unshade)
+Projet PHP Barry Allen (PHAM Tung Duong) && Agathe JINER
 
 ## The project
 
