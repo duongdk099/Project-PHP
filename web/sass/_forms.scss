@@ -1,0 +1,102 @@
+.form-container {
+    width: max-content;
+    margin: 0 auto;
+    margin-top: 100px;
+    background-color: #2c2c2c;
+    padding: 20px;
+    border-radius: 5px 5px 5px 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+
+
+    a {
+        text-decoration: underline;
+        color: $color-purple;
+    }
+    .id-form {
+        display: flex;
+        flex-direction: row;
+
+        .form-input {
+            background-color: $color-base;
+            width: 100%;
+            height: 50px;
+            border: 1px solid $color-base;
+            border-radius: 5px 5px 5px 5px;
+            padding: 0 10px;
+
+            &:focus {
+                outline: none;
+            }
+
+        }
+
+        .form-submit {
+            padding: 5px 15px;
+            background: $color-purple;
+            border: 0 none;
+            cursor: pointer;
+            border-radius: 5px 5px 5px 5px;
+        }
+    }
+
+    .login-form {
+
+
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .login-field {
+            width: 100%;
+            height: 50px;
+            width: 600px;
+            border-radius: 5px 5px 5px 5px;
+            color: $color-base;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .login-connexion {
+            background-color: $color-purple;
+            width: 100%;
+            height: 50px;
+            width: 600px;
+            border-radius: 5px 5px 5px 5px;
+            color: $color-white;
+            cursor: pointer;
+
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .form-submit-login {
+            padding: 5px 15px;
+            height: 50px;
+            width: 600px;
+            background: $color-purple;
+            border: 0 none;
+            cursor: pointer;
+            border-radius: 5px 5px 5px 5px;
+        }
+    }
+
+    &:hover {
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.705);
+        transition: box-shadow 0.5s ease 0s;
+
+    }
+
+    &:not(:hover) {
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0);
+        transition: box-shadow 0.5s ease 0s;
+    }
+
+}
+
